@@ -21,7 +21,7 @@ class IpSearch:
                 self.data = mmap.mmap(f.fileno(), 0, access=mmap.ACCESS_READ)
             else:
                 self.data = f.read()
-            
+
             self.dict={}       
             self.start =self.int_from_4byte(0)
             index_last_offset = self.int_from_4byte(4)
@@ -33,7 +33,7 @@ class IpSearch:
                 map_dict={ 'prefix':prefix , 'start_index':self.int_from_4byte(i+1), 'end_index':self.int_from_4byte(i+5) }
                 self.dict[prefix]=map_dict
                 i+=9
-              
+
         except Exception as ex:
             print("cannot open file")
             print(ex.args)
@@ -53,19 +53,18 @@ class IpSearch:
         ipdot = ip.split('.')
         prefix=int(ipdot[0])
         if prefix < 0 or prefix > 255 or len(ipdot) != 4:
-            return "N/A"       
+            return "N/A"
         intIP = self.ip2long(ip)
         high = 0
         low = 0
         startIp = 0
         endIp = 0
         local_offset = 0
-        local_length = 0           
-        if prefix in self.dict:               
-            low = self.dict.get(prefix)['start_index']
-            high = self.dict.get(prefix)['end_index']       
-        else:       
-            return "N/A"    
+        local_length = 0
+        if prefix not in self.dict:
+            return "N/A"
+        low = self.dict.get(prefix)['start_index']
+        high = self.dict.get(prefix)['end_index']
         my_index = self.binarySearch(low, high, intIP)  if low != high else  low
         start_num,end_num,local_offset,local_length=self.getIndex(my_index)
         if  start_num <= intIP  and   end_num >= intIP :       

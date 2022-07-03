@@ -12,13 +12,10 @@ class IpSearch:
         self.prefArr =[]
 
         record_size = self.int_from_4byte(0)
-       
-        i = 0
-        while i < 256:
-            p = i * 8 + 4
-            self.prefArr.append([self.int_from_4byte(p),self.int_from_4byte(p+4)])          
-            i += 1
 
+        for i in range(256):
+            p = i * 8 + 4
+            self.prefArr.append([self.int_from_4byte(p),self.int_from_4byte(p+4)])
         self.endArr = []
         self.addrArr = []
         j = 0

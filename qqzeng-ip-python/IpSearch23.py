@@ -86,11 +86,10 @@ class IpSearch:
         endIp = 0
         local_offset = 0
         local_length = 0
-        if prefix in self.dict:
-            low = self.dict.get(prefix)['start_index']
-            high = self.dict.get(prefix)['end_index']
-        else:
+        if prefix not in self.dict:
             return None
+        low = self.dict.get(prefix)['start_index']
+        high = self.dict.get(prefix)['end_index']
         my_index = self.binary_search(low, high, intIP) if low != high else low
         start_num, end_num, local_offset, local_length = self.get_index(
             my_index)
