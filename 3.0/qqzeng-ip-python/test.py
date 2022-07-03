@@ -6,7 +6,7 @@ from IpSearch import IpSearch
 finder = IpSearch("qqzeng-ip-3.0-ultimate.dat")
 
 ip_list = ['1.1.1.1', '8.8.8.8', '114.114.114.114']
-for index,ip in enumerate(ip_list):
+for ip in ip_list:
     result=finder.lookup(ip)
     print(result) 
 #|Cloudflare||||CloudflareDNS/APNIC|||||
